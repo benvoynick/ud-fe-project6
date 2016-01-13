@@ -48,17 +48,52 @@ $(function() {
      * is performing as expected.
      */
     describe('The menu', function() {
-        /* TODO: Write a test that ensures the menu element is
-         * hidden by default. You'll have to analyze the HTML and
-         * the CSS to determine how we're performing the
-         * hiding/showing of the menu element.
+        var menuContainerClass = '.slide-menu';
+        var menuIconClass = '.menu-icon-link';
+        
+        /* A hidden menu should be positioned far enough to the left
+         * that none of it appears on screen.
+         * This function tests if that is true.
          */
+        function isMenuPositionedOffScreen() {
+			var $menu = $(menuContainerClass);
+            var menuWidth = $menu.outerWidth();
+            if ($menu.offset().left + menuWidth <= 0) return true;
+			else return false;
+		}
 
-         /* TODO: Write a test that ensures the menu changes
-          * visibility when the menu icon is clicked. This test
-          * should have two expectations: does the menu display when
-          * clicked and does it hide when clicked again.
+        /* Ensure the menu element is hidden by default.
+         */
+        it('is hidden by default', function() {
+            expect(isMenuPositionedOffScreen()).toBe(true);
+        });
+
+         /* Ensure the menu changes visibility when the menu icon is clicked.
+          * This test clicks the menu twice, testing after each CSS transition
+          * that the menu has the desired visibility.
           */
+        it('opens and closes when its icon is clicked', function(done) {
+            var $menuIcon = $(menuIconClass);
+            var $menu = $(menuContainerClass);
+
+            function testClose() {
+				$menu.one('transitionend webkitTransitionEnd otransitionend oTransitionEnd', function() {
+                    expect(isMenuPositionedOffScreen()).toBe(true);
+                    done();
+                });
+                $menuIcon.click();
+			}
+
+            function testOpen() {
+                $menu.one('transitionend webkitTransitionEnd otransitionend oTransitionEnd', function() {
+                    expect(isMenuPositionedOffScreen()).toBe(false);
+                    testClose();
+                });
+                $menuIcon.click();
+			}
+
+            testOpen();
+        })
     });
 
     /* TODO: Write a new test suite named "Initial Entries" */
