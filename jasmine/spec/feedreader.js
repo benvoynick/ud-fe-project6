@@ -65,7 +65,7 @@ $(function() {
         function isMenuPositionedOffScreen() {
 			var $menu = $(menuContainerClass);
             var menuWidth = $menu.outerWidth();
-            return $menu.offset().left + menuWidth <= 0 ? true : false;
+            return $menu.offset().left + menuWidth <= 0;
 		}
 
         /* Ensure the menu element is hidden by default.
