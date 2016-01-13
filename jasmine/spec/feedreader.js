@@ -16,32 +16,38 @@ $(function() {
     describe('RSS Feeds', function() {
         /* This is our first test - it tests to make sure that the
          * allFeeds variable has been defined and that it is not
-         * empty. Experiment with this before you get started on
-         * the rest of this project. What happens when you change
-         * allFeeds in app.js to be an empty array and refresh the
-         * page?
+         * empty.
          */
         it('are defined', function() {
             expect(allFeeds).toBeDefined();
             expect(allFeeds.length).not.toBe(0);
         });
 
-
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a URL defined
+        /* Ensure that all feeds have a defined URL
          * and that the URL is not empty.
          */
+        it('have URLs', function() {
+            for (var f = 0; f < allFeeds.length; f++) {
+                expect(allFeeds[f].url).toBeDefined();
+                expect(allFeeds[f].url.length).not.toBe(0);
+            }
+        });
 
-
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a name defined
+        /* Ensure that all feeds have a defined name
          * and that the name is not empty.
          */
+        it('have names', function() {
+            for (var f = 0; f < allFeeds.length; f++) {
+                expect(allFeeds[f].name).toBeDefined();
+                expect(allFeeds[f].name.length).not.toBe(0);
+            }
+        });
     });
 
-
-    /* TODO: Write a new test suite named "The menu" */
-
+    /* Our second suite of tests ensures the menu's visibility code
+     * is performing as expected.
+     */
+    describe('The menu', function() {
         /* TODO: Write a test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
          * the CSS to determine how we're performing the
@@ -53,6 +59,7 @@ $(function() {
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
           */
+    });
 
     /* TODO: Write a new test suite named "Initial Entries" */
 
