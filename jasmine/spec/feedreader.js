@@ -65,8 +65,7 @@ $(function() {
         function isMenuPositionedOffScreen() {
 			var $menu = $(menuContainerClass);
             var menuWidth = $menu.outerWidth();
-            if ($menu.offset().left + menuWidth <= 0) return true;
-			else return false;
+            return $menu.offset().left + menuWidth <= 0 ? true : false;
 		}
 
         /* Ensure the menu element is hidden by default.
@@ -100,7 +99,7 @@ $(function() {
 			}
 
             testOpen();
-        })
+        });
     });
 
     describe('Initial entries', function() {
