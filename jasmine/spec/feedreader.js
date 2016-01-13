@@ -23,6 +23,13 @@ $(function() {
             expect(allFeeds.length).not.toBe(0);
         });
 
+        /* Additional test: ensure we have a second feed to use in
+         * New Feed Selection below
+         */
+        it('number at least two, allowing New feed selection test below', function() {
+            expect(allFeeds.length).toBeGreaterThan(1);
+        });
+
         /* Ensure that all feeds have a defined URL
          * and that the URL is not empty.
          */
@@ -108,10 +115,19 @@ $(function() {
         });
     });
 
-    /* TODO: Write a new test suite named "New Feed Selection"
-
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
+    describe('New feed selection', function() {
+        /* Ensure that when a new feed is loaded by the loadFeed function,
+         * the content actually changes.
          */
+        beforeEach(function(done) {
+            loadFeed(1, done);
+        });
+        it('does change content in .feed', function(done) {
+            var oldFeedContent = $('.feed').html();
+            loadFeed(0, function() {
+                expect($('.feed').html()).not.toEqual(oldFeedContent);
+                done();
+            });
+        });
+    });
 }());
